@@ -1,0 +1,56 @@
+# Node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Logs
+logs/
+*.log
+*.log.*
+
+# Dependency directories
+jspm_packages/
+bower_components/
+
+# Build directories
+dist/
+build/
+
+# Environment variables
+.env
+
+# IDE files
+.vscode/
+.idea/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.swp
+*.bak
+*.backup
+*.orig
+*.save
+
+# Compiled files
+*.out
+*.class
+*.pyc
+*.pyo
+*.o
+*.obj
+
+# Coverage reports
+coverage/
+.nyc_output/
+
+# Miscellaneous
+*.lock
+*.cache
+*.pdb
+*.pid
+*.seed
+*.pid.lock
