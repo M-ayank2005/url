@@ -36,10 +36,10 @@ const App = () => {
 
     setIsLoading(true);
     try {
-      const response = await axios.post("https://urlbackend.vercel.app/api/url", {
+      const response = await axios.post("https://urlshort-mocha.vercel.app/api/url", {
         url: originalUrl,
       });
-      const newShortUrl = `https://urlbackend.vercel.app/${response.data.id}`;
+      const newShortUrl = `https://urlshort-mocha.vercel.app/${response.data.id}`;
       setShortUrl(newShortUrl);
       setRecentUrls(prev => {
         const updated = [{ url: originalUrl, shortUrl: newShortUrl, date: new Date().toISOString() }, ...prev].slice(0, 5);
@@ -56,7 +56,7 @@ const App = () => {
   const handleGetAnalytics = async (shortID) => {
     try {
       const response = await axios.get(
-        `https://urlbackend.vercel.app/api/url/analytics/${shortID}`
+        `https://urlshort-mocha.vercel.app/api/url/analytics/${shortID}`
       );
       setAnalytics(response.data.totalClicks);
       toast.success("Analytics fetched successfully!");
