@@ -36,10 +36,10 @@ const App = () => {
 
     setIsLoading(true);
     try {
-      const response = await axios.post("http://localhost:3000/api/url/", {
+      const response = await axios.post("https://urlbackend-3bwm.onrender.com/api/url/", {
         url: originalUrl,
       });
-      const newShortUrl = `http://localhost:3000/${response.data.id}`;
+      const newShortUrl = `https://urlbackend-3bwm.onrender.com/${response.data.id}`;
       setShortUrl(newShortUrl);
       setRecentUrls(prev => {
         const updated = [{ url: originalUrl, shortUrl: newShortUrl, date: new Date().toISOString() }, ...prev].slice(0, 5);
@@ -56,7 +56,7 @@ const App = () => {
   const handleGetAnalytics = async (shortID) => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/api/url/analytics/${shortID}`
+        `https://urlbackend-3bwm.onrender.com/api/url/analytics/${shortID}`
       );
       setAnalytics(response.data.totalClicks);
       toast.success("Analytics fetched successfully!");
