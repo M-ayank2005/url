@@ -1,70 +1,117 @@
-# Getting Started with Create React App
+# React URL Shortener
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**A clean, responsive React app to turn long URLs into neat, shareable short links.**
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+##  Features
 
-### `npm start`
+- Input a long URL and instantly generate a shortened version.
+- Copy the shortened link to your clipboard with a click.
+- Simple and intuitive UI built with React.
+- Ready for integration with any backend or public API.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+##  Quick Start
 
-### `npm test`
+### Prerequisites
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Node.js (v16 or above)
+- npm (version 8 or above) or yarn
 
-### `npm run build`
+###  Installation
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```bash
+# Clone the repo
+git clone https://github.com/M-ayank2005/url.git
+cd url
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+# Install dependencies
+npm install
+# or
+yarn install
+````
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Configuration
 
-### `npm run eject`
+```env
+REACT_APP_BACKEND_URL=https://your-backend.com
+# or
+REACT_APP_BITLY_TOKEN=your_bitly_token
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Run Locally
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```bash
+npm start
+# or
+yarn start
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+App will be live at `http://localhost:3000`—open it and enjoy!
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+---
 
-## Learn More
+## Usage
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+1. Paste or type in your long URL into the input field.
+2. Click the “Shorten” button.
+3. Copy the generated short link with one click.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Tech Stack & Structure
 
-### Analyzing the Bundle Size
+* **Built with:** React (JavaScript)
+* **HTTP Client:** fetch or Axios (whichever you're using)
+* **Project layout:**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+```
+src/
+├── components/
+│   └── UrlShortener.js
+├── App.js
+└── index.js
+```
 
-### Making a Progressive Web App
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## Roadmap
 
-### Advanced Configuration
+Future enhancements in mind:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+* Add custom alias for shortened URLs
+* Provide link analytics (click count, timestamps)
+* User authentication and history management
+* Deploy frontend & backend for public usage
 
-### Deployment
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## Contributing
 
-### `npm run build` fails to minify
+Want to help or share ideas?
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+1. Fork the repo
+2. Create a feature branch (`git checkout -b feat-name`)
+3. Commit your changes (`git commit -m 'Add some feature'`)
+4. Push to your branch (`git push origin feat-name`)
+5. Open a Pull Request—I'll gladly review!
+
+---
+
+## License
+
+This project is licensed under the MIT License.
+
+---
+
+## Contact
+
+Created with passion by **Mayank** – a B.Tech Computer Science student at IIIT Lucknow.
+
+Find me on GitHub: [M-ayank2005](https://github.com/M-ayank2005)
+
+Happy coding and keep building forward!
+
