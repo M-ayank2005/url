@@ -9,19 +9,20 @@ const App = () => {
   const [shortUrl, setShortUrl] = useState("");
   const [analytics, setAnalytics] = useState(null);
   const [isDarkMode, setIsDarkMode] = useState(() => {
-    const savedTheme = localStorage.getItem("theme");
-    return savedTheme ? JSON.parse(savedTheme) : false;
-  });
+  const savedTheme = localStorage.getItem("theme");
+  return savedTheme === "true";  
+});
+
   const [isLoading, setIsLoading] = useState(false);
   const [recentUrls, setRecentUrls] = useState(() => {
     const saved = localStorage.getItem("recentUrls");
     return saved ? JSON.parse(saved) : [];
   });
 
-  useEffect(() => {
-    localStorage.setItem("theme", JSON.stringify(isDarkMode));
-    document.documentElement.classList.toggle("dark", isDarkMode);
-  }, [isDarkMode]);
+ useEffect(() => {
+  localStorage.setItem("theme", isDarkMode);
+  document.documentElement.classList.toggle("dark", isDarkMode);
+}, [isDarkMode]);
 
   useEffect(() => {
     localStorage.setItem("recentUrls", JSON.stringify(recentUrls));
@@ -29,8 +30,22 @@ const App = () => {
 
   const handleShortenUrl = async (e) => {
     e.preventDefault();
+    
+    // Validate URL format on frontend
     if (!originalUrl) {
       toast.error("Please enter a valid URL!");
+      return;
+    }
+
+    // Basic URL validation
+    try {
+      const urlObj = new URL(originalUrl);
+      if (!['http:', 'https:'].includes(urlObj.protocol)) {
+        toast.error("Please enter a URL starting with http:// or https://");
+        return;
+      }
+    } catch (error) {
+      toast.error("Please enter a valid URL (e.g., https://example.com)");
       return;
     }
 
@@ -39,15 +54,45 @@ const App = () => {
       const response = await axios.post("https://urlbackend-3bwm.onrender.com/api/url/", {
         url: originalUrl,
       });
+      
+      // Check if backend returned success
+      if (response.data.success === false) {
+        toast.error(response.data.error || "Failed to shorten URL");
+        return;
+      }
+      
       const newShortUrl = `https://urlbackend-3bwm.onrender.com/${response.data.id}`;
       setShortUrl(newShortUrl);
       setRecentUrls(prev => {
         const updated = [{ url: originalUrl, shortUrl: newShortUrl, date: new Date().toISOString() }, ...prev].slice(0, 5);
         return updated;
       });
-      toast.success("URL shortened successfully!");
+      
+      // Show appropriate message
+      if (response.data.message === 'URL already exists') {
+        toast.info("This URL was already shortened. Here's your existing short URL!");
+      } else {
+        toast.success("URL shortened successfully!");
+      }
     } catch (error) {
-      toast.error("Failed to shorten the URL.");
+      // Handle different error responses
+      if (error.response) {
+        // Server responded with error
+        const errorMessage = error.response.data?.error || "Failed to shorten the URL.";
+        
+        if (error.response.status === 429) {
+          toast.error("Too many requests. Please try again in a few minutes.");
+        } else if (error.response.status === 400) {
+          toast.error(errorMessage);
+        } else {
+          toast.error(errorMessage);
+        }
+      } else if (error.request) {
+        // Network error
+        toast.error("Network error. Please check your connection.");
+      } else {
+        toast.error("An unexpected error occurred.");
+      }
     } finally {
       setIsLoading(false);
     }
@@ -58,10 +103,28 @@ const App = () => {
       const response = await axios.get(
         `https://urlbackend-3bwm.onrender.com/api/url/analytics/${shortID}`
       );
+      
+      if (response.data.success === false) {
+        toast.error(response.data.error || "Failed to fetch analytics");
+        return;
+      }
+      
       setAnalytics(response.data.totalClicks);
       toast.success("Analytics fetched successfully!");
     } catch (error) {
-      toast.error("Failed to fetch analytics.");
+      if (error.response) {
+        const errorMessage = error.response.data?.error || "Failed to fetch analytics.";
+        
+        if (error.response.status === 404) {
+          toast.error("Short URL not found.");
+        } else if (error.response.status === 429) {
+          toast.error("Too many requests. Please try again later.");
+        } else {
+          toast.error(errorMessage);
+        }
+      } else {
+        toast.error("Network error. Please check your connection.");
+      }
     }
   };
 
