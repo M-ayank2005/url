@@ -51,7 +51,7 @@ const App = () => {
 
     setIsLoading(true);
     try {
-      const response = await axios.post("https://urlbackend-3bwm.onrender.com/api/url/", {
+      const response = await axios.post("https://urlbackend.vercel.app/api/url/", {
         url: originalUrl,
       });
       
@@ -60,8 +60,8 @@ const App = () => {
         toast.error(response.data.error || "Failed to shorten URL");
         return;
       }
-      
-      const newShortUrl = `https://urlbackend-3bwm.onrender.com/${response.data.id}`;
+
+      const newShortUrl = `https://urlbackend.vercel.app/${response.data.id}`;
       setShortUrl(newShortUrl);
       setRecentUrls(prev => {
         const updated = [{ url: originalUrl, shortUrl: newShortUrl, date: new Date().toISOString() }, ...prev].slice(0, 5);
@@ -101,7 +101,7 @@ const App = () => {
   const handleGetAnalytics = async (shortID) => {
     try {
       const response = await axios.get(
-        `https://urlbackend-3bwm.onrender.com/api/url/analytics/${shortID}`
+        `https://urlbackend.vercel.app/api/url/analytics/${shortID}`
       );
       
       if (response.data.success === false) {
